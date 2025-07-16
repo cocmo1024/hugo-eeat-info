@@ -1,7 +1,7 @@
 {{- /* ============================================
      ✅ 作者信息展示模块（author-box.html）
      来源模块：hugo-eeat-info
-     修改目标：深色背景下，边缘加深灰阴影，形成立体边框感
+     修改目标：移动端头像居中，作者名居中，左右布局桌面端
      ============================================ */ -}}
 
 {{- $authorName := .Params.author | default site.Params.author }}
@@ -9,26 +9,62 @@
 {{- $author := index $authors $authorName }}
 
 {{- if $author }}
-<div style="
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 1.5rem;
-  margin-top: 2rem;
-  padding: 1.5rem;
-  border-radius: 12px;
-  background-color: inherit; /* 不破坏暗色主题背景 */
-  box-shadow: 0 0 8px rgba(50, 50, 50, 0.6); /* 深灰外缘虚化效果 */
-  border: 1px solid rgba(80, 80, 80, 0.8); /* 可见边缘线 */
-">
+<style>
+  .author-box {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border-radius: 12px;
+    background-color: inherit; /* 保持暗色主题 */
+    box-shadow: 0 0 8px rgba(50, 50, 50, 0.6);
+    border: 1px solid rgba(80, 80, 80, 0.8);
+  }
+  .author-avatar {
+    flex: 0 0 120px;
+  }
+  .author-avatar img {
+    width: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .author-info {
+    flex: 1;
+    min-width: 200px;
+  }
 
+  /* 移动端响应式 */
+  @media (max-width: 768px) {
+    .author-box {
+      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .author-avatar {
+      flex: none;
+      width: 120px;
+      margin-bottom: 1rem;
+    }
+    .author-info {
+      min-width: auto;
+    }
+    .author-info ul {
+      justify-content: center !important;
+    }
+  }
+</style>
+
+<div class="author-box">
   {{ with $author.avatar }}
-  <div style="flex: 0 0 120px;">
-    <img src="{{ . | absURL }}" alt="{{ $authorName }}" style="width: 100%; border-radius: 50%; object-fit: cover;">
+  <div class="author-avatar">
+    <img src="{{ . | absURL }}" alt="{{ $authorName }}">
   </div>
   {{ end }}
 
-  <div style="flex: 1; min-width: 200px;">
+  <div class="author-info">
     <p style="margin: 0 0 0.5rem; font-weight: bold;">👤 {{ $authorName }}</p>
 
     {{ with $author.bio }}
@@ -36,7 +72,7 @@
     {{ end }}
 
     {{ with $author.links }}
-    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 1rem;">
+    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: flex-start;">
       {{ range . }}
         <li><a href="{{ .url }}" target="_blank" rel="noopener" style="text-decoration: none;">🔗 {{ .name }}</a></li>
       {{ end }}
