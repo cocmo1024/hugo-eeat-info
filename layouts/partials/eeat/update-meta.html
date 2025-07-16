@@ -1,0 +1,11 @@
+{{- /* ================================
+     ✅ 更新时间结构化标记
+     来源模块：hugo-eeat-info
+     用于提升 EEAT 可信度，Google 可识别的结构化格式
+     ================================ */ -}}
+
+{{- $modified := .Lastmod | time.Format "2006-01-02T15:04:05Z07:00" }}
+{{- if $modified }}
+  <meta property="article:modified_time" content="{{ $modified }}">
+{{- end }}
+
