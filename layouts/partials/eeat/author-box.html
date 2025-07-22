@@ -4,7 +4,7 @@
      修改目标：移动端头像居中，作者名居中，左右布局桌面端
      ============================================ */ -}}
 
-{{- $authorName := .Params.author | default site.Params.author }}
+{{- $authorName := .Params.author | default (site.Params.author | default "Walter") }}
 {{- $authors := site.Params.authors }}
 {{- $author := index $authors $authorName }}
 
