@@ -1,3 +1,4 @@
-https://github.com/cocmo1024/hugo-eeat-info
+module github.com/cocmo1024/hugo-eeat-info
 
-go 1.20
+go 1.21
+
